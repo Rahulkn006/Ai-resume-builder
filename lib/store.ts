@@ -7,8 +7,8 @@ interface ResumeStore {
   updateEducation: (education: ResumeDetails['education']) => void;
   updateSkills: (skills: string[]) => void;
   updateProjects: (projects: ResumeDetails['projects']) => void;
-  updateExperience: (experience: ResumeDetails['experience']) => void;
   updateTargetJobRole: (role: string) => void;
+  updateSummary: (summary: string) => void;
   updateAtsScore: (score: ResumeDetails['atsScore']) => void;
   updateActiveTemplate: (template: ResumeDetails['activeTemplate']) => void;
   setAllData: (data: ResumeDetails) => void;
@@ -31,11 +31,14 @@ export const useResumeStore = create<ResumeStore>((set) => ({
   updateProjects: (projects) => 
     set((state) => ({ data: { ...state.data, projects } })),
     
-  updateExperience: (experience) => 
+  updateExperience: (experience: ResumeDetails['experience']) => 
     set((state) => ({ data: { ...state.data, experience } })),
     
   updateTargetJobRole: (role) => 
     set((state) => ({ data: { ...state.data, targetJobRole: role } })),
+
+  updateSummary: (summary) =>
+    set((state) => ({ data: { ...state.data, summary } })),
 
   updateAtsScore: (score) => 
     set((state) => ({ data: { ...state.data, atsScore: score } })),

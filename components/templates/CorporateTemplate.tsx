@@ -24,6 +24,18 @@ export default function CorporateTemplate() {
           {data.personalDetails.linkedin && <span>| {data.personalDetails.linkedin}</span>}
         </div>
       </header>
+      
+      {/* Summary */}
+      {data.summary && (
+        <section className="mb-6">
+          <h3 className="text-lg font-bold text-gray-900 uppercase tracking-widest border-b border-gray-500 pb-1 mb-3">
+            Professional Summary
+          </h3>
+          <p className="text-sm text-gray-800 leading-relaxed font-sans italic ml-2">
+            {data.summary}
+          </p>
+        </section>
+      )}
 
       {/* Experience */}
       {data.experience.length > 0 && (

@@ -24,6 +24,18 @@ export default function ModernTemplate() {
           {data.personalDetails.linkedin && <span>• {data.personalDetails.linkedin}</span>}
         </div>
       </header>
+      
+      {/* Summary Section */}
+      {data.summary && (
+        <section className="mb-6">
+          <h3 className="text-sm font-bold text-gray-900 uppercase tracking-widest border-b-2 border-blue-600 pb-1 mb-3">
+            Professional Summary
+          </h3>
+          <p className="text-sm text-gray-700 leading-relaxed italic">
+            {data.summary}
+          </p>
+        </section>
+      )}
 
       {/* Grid Layout */}
       <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8">

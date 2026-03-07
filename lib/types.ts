@@ -28,6 +28,7 @@ export interface ResumeDetails {
     endDate: string;
     description: string;
   }[];
+  summary?: string;
   targetJobRole: string;
   atsScore?: {
     score: number;
@@ -46,6 +47,7 @@ export const initialResumeState: ResumeDetails = {
     linkedin: '',
     portfolio: ''
   },
+  summary: '',
   education: [],
   skills: [],
   projects: [],

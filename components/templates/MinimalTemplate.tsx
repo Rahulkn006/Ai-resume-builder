@@ -24,6 +24,15 @@ export default function MinimalTemplate() {
           {data.personalDetails.linkedin && <span>• {data.personalDetails.linkedin}</span>}
         </div>
       </header>
+      
+      {/* Summary */}
+      {data.summary && (
+        <section className="mb-8">
+          <p className="text-sm text-gray-600 leading-relaxed italic text-center max-w-2xl mx-auto">
+            {data.summary}
+          </p>
+        </section>
+      )}
 
       {/* Experience */}
       {data.experience.length > 0 && (

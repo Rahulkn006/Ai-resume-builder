@@ -21,14 +21,16 @@ ${JSON.stringify({
 })}
 
 Task:
-1. Revise the "description" fields within "experience" and "projects" to be highly professional, impactful, action-oriented, and ATS-friendly for the Target Job Role. 
-2. Determine an ATS Score (out of 100) based on how well the existing skills and experience match the typical requirements of the Target Job Role.
-3. Identify 3-5 crucial industry missing keywords or skills that the user should consider learning or adding if they have experience with them.
-4. Provide up to 3 formatting or structural suggestions.
-5. Provide up to 3 overall content improvement suggestions.
+1. Generate a concise "summary" (under 50 words) that highlights the user's key strengths and career objectives for the Target Job Role.
+2. Revise the "description" fields within "experience" and "projects" to be professional, impactful, action-oriented, and ATS-friendly for the Target Job Role. IMPORTANT: If the original description for an experience or project entry is empty or very short (just a few words), generate ONLY 2-3 concise bullet points (each under 15 words). Do NOT write lengthy paragraphs for entries where the user has not provided a detailed description. Only fully expand descriptions that the user has already written in detail.
+3. Determine an ATS Score (out of 100) based on how well the existing skills and experience match the typical requirements of the Target Job Role.
+4. Identify 3-5 crucial industry missing keywords or skills that the user should consider learning or adding if they have experience with them.
+5. Provide up to 3 formatting or structural suggestions.
+6. Provide up to 3 overall content improvement suggestions.
 
 Return your response ONLY in the following JSON format:
 {
+  "summary": "concise professional summary...",
   "optimizedExperience": [
     { "company": "...", "role": "...", "startDate": "...", "endDate": "...", "description": "optimized text..." }
   ],

@@ -7,6 +7,7 @@ import EducationForm from "@/components/forms/EducationForm";
 import SkillsForm from "@/components/forms/SkillsForm";
 import ExperienceForm from "@/components/forms/ExperienceForm";
 import ProjectsForm from "@/components/forms/ProjectsForm";
+import SummaryForm from "@/components/forms/SummaryForm";
 import TargetRoleForm from "@/components/forms/TargetRoleForm";
 import AtsScoreDisplay from "@/components/AtsScoreDisplay";
 import ResumePreview from "@/components/templates/ResumePreview";
@@ -14,6 +15,7 @@ import ExportPanel from "@/components/ExportPanel";
 
 const steps = [
   { id: "personal", title: "Personal Info", icon: User },
+  { id: "summary", title: "Summary", icon: Star },
   { id: "education", title: "Education", icon: GraduationCap },
   { id: "skills", title: "Skills", icon: Code },
   { id: "projects", title: "Projects", icon: FolderGit2 },
@@ -81,6 +83,10 @@ export default function BuilderPage() {
       }
 
       newData.atsScore = result.atsScore;
+      
+      if (result.summary) {
+        newData.summary = result.summary;
+      }
       
       setAllData(newData);
       setActiveStep("ats-results");
@@ -200,6 +206,7 @@ export default function BuilderPage() {
           )}
 
           {activeStep === "education" && <EducationForm />}
+          {activeStep === "summary" && <SummaryForm />}
           {activeStep === "skills" && <SkillsForm />}
           {activeStep === "projects" && <ProjectsForm />}
           {activeStep === "experience" && <ExperienceForm />}

@@ -80,6 +80,23 @@ export default function CreativeTemplate() {
       {/* Right Content Area */}
       <div className="w-2/3 p-10 bg-white">
         
+        {/* Summary */}
+        {data.summary && (
+          <section className="mb-10">
+            <div className="flex items-center gap-4 mb-4">
+               <div className="w-8 h-8 rounded-full bg-[#ff847c] flex items-center justify-center shrink-0">
+                  <div className="w-3 h-3 bg-white rounded-full" />
+               </div>
+               <h3 className="text-2xl font-black text-[#2a363b] tracking-tight">
+                 Summary
+               </h3>
+            </div>
+            <p className="text-sm text-gray-600 leading-relaxed italic border-l-2 border-gray-100 ml-4 pl-10">
+              {data.summary}
+            </p>
+          </section>
+        )}
+
         {/* Experience */}
         {data.experience.length > 0 && (
           <section className="mb-10">

@@ -24,6 +24,18 @@ export default function TechTemplate() {
           {data.personalDetails.linkedin && <span>• {data.personalDetails.linkedin}</span>}
         </div>
       </header>
+      
+      {/* Summary */}
+      {data.summary && (
+        <section className="mb-5">
+           <h3 className="text-xs font-bold text-gray-900 uppercase tracking-[0.15em] border-b border-gray-300 pb-1 mb-2">
+            Professional Summary
+          </h3>
+          <p className="text-xs text-gray-600 leading-relaxed italic">
+            {data.summary}
+          </p>
+        </section>
+      )}
 
       {/* Skills - Prominent for tech roles */}
       {data.skills.length > 0 && (
