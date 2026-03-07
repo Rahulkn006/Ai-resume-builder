@@ -7,6 +7,7 @@ interface ResumeStore {
   updateEducation: (education: ResumeDetails['education']) => void;
   updateSkills: (skills: string[]) => void;
   updateProjects: (projects: ResumeDetails['projects']) => void;
+  updateExperience: (experience: ResumeDetails['experience']) => void;
   updateTargetJobRole: (role: string) => void;
   updateSummary: (summary: string) => void;
   updateAtsScore: (score: ResumeDetails['atsScore']) => void;
