@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import {
   Eye, Download, FileText, ArrowUpRight, ArrowDownRight, Target, Award, Zap, Loader2
 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 import DashboardLayout from "@/components/DashboardLayout";
 import GradientText from "@/components/ui/GradientText";
 import GlassCard from "@/components/ui/GlassCard";
@@ -51,12 +52,22 @@ export default function AnalyticsPage() {
   useEffect(() => {
     const fetchResumes = async () => {
       try {
-        const stored = localStorage.getItem("resumeai-preferences");
-        if (!stored) return;
-        const prefs = JSON.parse(stored);
-        if (!prefs.email) return;
+        // Try getting email from Supabase auth session first
+        const { data: { user } } = await supabase.auth.getUser();
+        let email = user?.email;
 
-        const res = await fetch(`/api/resumes?email=${encodeURIComponent(prefs.email)}`);
+        // Fallback to localStorage preferences
+        if (!email) {
+          const stored = localStorage.getItem("resumeai-preferences");
+          if (stored) {
+            const prefs = JSON.parse(stored);
+            email = prefs.email;
+          }
+        }
+
+        if (!email) return;
+
+        const res = await fetch(`/api/resumes?email=${encodeURIComponent(email)}`);
         const result = await res.json();
         
         if (result.success && result.data) {

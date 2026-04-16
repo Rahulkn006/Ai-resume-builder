@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useResumeStore } from "@/lib/store";
 import { DownloadCloud, Save, Check } from "lucide-react";
 import { motion } from "framer-motion";
+import { supabase } from "@/lib/supabase";
 import ModernTemplate from "./templates/ModernTemplate";
 import MinimalTemplate from "./templates/MinimalTemplate";
 import CorporateTemplate from "./templates/CorporateTemplate";
@@ -122,6 +123,27 @@ export default function ExportPanel() {
       savedResumes.push(resumeEntry);
       localStorage.setItem('resumeai_saved', JSON.stringify(savedResumes));
 
+      // Get authenticated user's email
+      const { data: { user } } = await supabase.auth.getUser();
+      const authEmail = user?.email;
+
+      // Use auth email, fallback to form email
+      const userEmail = authEmail || data.personalDetails?.email;
+
+      if (!userEmail) {
+        setSaveMessage({ type: 'error', text: 'Please sign in with Google to save online.' });
+        return;
+      }
+
+      // Inject the auth email into resume data for the API
+      const saveData = {
+        ...data,
+        personalDetails: {
+          ...data.personalDetails,
+          email: userEmail,
+        }
+      };
+
       const fileTitle = data.personalDetails?.fullName 
         ? `${data.personalDetails.fullName} Resume`
         : 'Untitled Resume';
@@ -131,18 +153,17 @@ export default function ExportPanel() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          data: data,
+          data: saveData,
           title: fileTitle,
           template: data.activeTemplate,
           status: 'complete',
-          atsScore: Math.floor(Math.random() * 15) + 80 // Assign pseudo-random realistic ATS score
+          atsScore: Math.floor(Math.random() * 15) + 80
         }),
       });
 
       const result = await response.json();
 
       if (!response.ok) {
-        // Server error but localStorage worked
         setSaveMessage({ type: 'success', text: 'Resume saved locally! (Database unavailable)' });
         return;
       }
@@ -156,7 +177,6 @@ export default function ExportPanel() {
         setSaveMessage({ type: 'success', text: 'Resume saved successfully! (Analytics Active)' });
       }
     } catch (err: any) {
-      // Even if API fails, localStorage save already succeeded
       setSaveMessage({ type: 'success', text: 'Resume saved locally!' });
     } finally {
       setIsSaving(false);

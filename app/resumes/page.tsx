@@ -7,6 +7,7 @@ import {
   FileText, Plus, Trash2, Copy, ExternalLink, Clock,
   LayoutGrid, List, Search as SearchIcon, Loader2
 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 import DashboardLayout from "@/components/DashboardLayout";
 import GradientText from "@/components/ui/GradientText";
 import GlassCard from "@/components/ui/GlassCard";
@@ -73,19 +74,25 @@ export default function ResumesPage() {
   useEffect(() => {
     const fetchResumes = async () => {
       try {
-        const stored = localStorage.getItem("resumeai-preferences");
-        if (!stored) {
-          setLoading(false);
-          return;
+        // Try getting email from Supabase auth session first
+        const { data: { user } } = await supabase.auth.getUser();
+        let email = user?.email;
+
+        // Fallback to localStorage preferences
+        if (!email) {
+          const stored = localStorage.getItem("resumeai-preferences");
+          if (stored) {
+            const prefs = JSON.parse(stored);
+            email = prefs.email;
+          }
         }
-        
-        const prefs = JSON.parse(stored);
-        if (!prefs.email) {
+
+        if (!email) {
           setLoading(false);
           return;
         }
 
-        const res = await fetch(`/api/resumes?email=${encodeURIComponent(prefs.email)}`);
+        const res = await fetch(`/api/resumes?email=${encodeURIComponent(email)}`);
         const result = await res.json();
         
         if (result.success && result.data) {
