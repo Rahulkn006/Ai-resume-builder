@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FileText, Home, FolderOpen, BarChart3, Settings, LogOut, Search, Bell, Sun, Moon } from "lucide-react";
 import GradientText from "@/components/ui/GradientText";
 import { useTheme } from "@/components/ThemeProvider";
 import { ReactNode } from "react";
+import { supabase } from "@/lib/supabase";
 
 const sidebarItems = [
   { icon: Home, label: "Dashboard", href: "/dashboard" },
@@ -16,7 +17,13 @@ const sidebarItems = [
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const { resolvedTheme, setTheme, theme } = useTheme();
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    router.push('/');
+  };
 
   return (
     <div className="min-h-screen flex relative">
@@ -77,7 +84,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
         {/* Bottom */}
         <div className="pt-6 border-t border-white/5">
-          <button className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:text-white hover:bg-white/5 transition-all w-full">
+          <button 
+            onClick={handleSignOut}
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-500 hover:text-white hover:bg-white/5 transition-all w-full"
+          >
             <LogOut className="w-4.5 h-4.5" />
             Sign Out
           </button>
