@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useResumeStore } from "@/lib/store";
 import { X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import GradientButton from "@/components/ui/GradientButton";
 
 export default function SkillsForm() {
   const { data, updateSkills } = useResumeStore();
@@ -21,68 +23,76 @@ export default function SkillsForm() {
   };
 
   const commonSkills = [
-    "JavaScript", "TypeScript", "React", "Next.js", "Node.js", 
+    "JavaScript", "TypeScript", "React", "Next.js", "Node.js",
     "Python", "SQL", "Tailwind CSS", "Git", "UI/UX Design"
   ];
 
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-xl font-semibold mb-1">Skills</h3>
+        <h3 className="text-2xl font-bold text-white mb-1">Skills</h3>
         <p className="text-gray-500 text-sm mb-6">Highlight your core competencies and technical skills.</p>
-        
-        <form onSubmit={handleAddSkill} className="flex gap-2 mb-6">
-          <input 
-            type="text" 
+
+        <form onSubmit={handleAddSkill} className="flex gap-3 mb-6">
+          <input
+            type="text"
             value={currentSkill}
             onChange={(e) => setCurrentSkill(e.target.value)}
-            className="flex-1 border border-gray-300 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-blue-500 outline-none" 
-            placeholder="e.g. React.js, Project Management" 
+            className="flex-1 rounded-xl px-4 py-3"
+            placeholder="e.g. React.js, Project Management"
           />
-          <button 
+          <GradientButton
             type="submit"
             disabled={!currentSkill.trim()}
-            className="bg-blue-600 text-white px-6 py-2.5 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="px-6 py-3"
           >
             Add
-          </button>
+          </GradientButton>
         </form>
 
+        {/* Added Skills */}
         <div className="flex flex-wrap gap-2 mb-8">
-          {data.skills.map((skill, index) => (
-            <div 
-              key={index}
-              className="group flex items-center gap-2 bg-gray-100 text-gray-800 px-3 py-1.5 rounded-full text-sm border border-gray-200"
-            >
-              <span>{skill}</span>
-              <button 
-                onClick={() => removeSkill(skill)}
-                className="text-gray-400 hover:text-red-500 p-0.5 rounded-full hover:bg-red-50 transition-colors"
+          <AnimatePresence>
+            {data.skills.map((skill, index) => (
+              <motion.div
+                key={skill}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                className="group flex items-center gap-2 bg-white/[0.08] text-white px-3.5 py-2 rounded-xl text-sm border border-white/10 hover:border-white/20 transition-all"
               >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          ))}
+                <span className="font-medium">{skill}</span>
+                <button
+                  onClick={() => removeSkill(skill)}
+                  className="text-gray-500 hover:text-red-400 p-0.5 rounded-full transition-colors"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </motion.div>
+            ))}
+          </AnimatePresence>
           {data.skills.length === 0 && (
-            <p className="text-gray-400 text-sm italic w-full">No skills added yet. Add some above.</p>
+            <p className="text-gray-600 text-sm italic w-full">No skills added yet. Add some above.</p>
           )}
         </div>
 
+        {/* Suggested Skills */}
         <div>
-          <h4 className="text-sm font-medium text-gray-700 mb-3 block">Suggested Skills</h4>
+          <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3 ml-1">Suggested Skills</h4>
           <div className="flex flex-wrap gap-2">
             {commonSkills.filter(skill => !data.skills.includes(skill)).map((skill) => (
-              <button
+              <motion.button
                 key={skill}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => updateSkills([...data.skills, skill])}
-                className="text-sm bg-white border border-dashed border-gray-300 text-gray-600 hover:text-blue-600 hover:border-blue-400 px-3 py-1.5 rounded-full transition-colors flex items-center gap-1"
+                className="text-sm bg-white/[0.03] border border-dashed border-white/10 text-gray-500 hover:text-blue-400 hover:border-blue-500/30 hover:bg-blue-500/5 px-3.5 py-2 rounded-xl transition-all duration-300 flex items-center gap-1"
               >
                 + {skill}
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
-
       </div>
     </div>
   );

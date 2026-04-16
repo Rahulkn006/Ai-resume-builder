@@ -1,173 +1,258 @@
+"use client";
+
 import Link from "next/link";
-import { FileText, Sparkles, BarChart3, Download, ArrowRight, CheckCircle } from "lucide-react";
+import { FileText, Sparkles, BarChart3, Download, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import GradientText from "@/components/ui/GradientText";
+import GlassCard from "@/components/ui/GlassCard";
+import GradientButton from "@/components/ui/GradientButton";
+import Badge from "@/components/ui/Badge";
+import AnimatedSection from "@/components/ui/AnimatedSection";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#0b1120] text-white overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden">
 
-      {/* Ambient glow effects */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-indigo-600/20 blur-[120px]" />
-        <div className="absolute top-1/2 -left-40 w-[500px] h-[500px] rounded-full bg-cyan-500/15 blur-[120px]" />
-        <div className="absolute bottom-0 right-1/3 w-[400px] h-[400px] rounded-full bg-violet-600/10 blur-[100px]" />
+      {/* Ambient Glow Orbs */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden select-none">
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-blue-500/[0.07] blur-[120px] animate-pulse-glow" />
+        <div className="absolute top-1/3 -left-40 w-[500px] h-[500px] rounded-full bg-purple-500/[0.05] blur-[120px] animate-pulse-glow" style={{ animationDelay: "1.5s" }} />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-yellow-500/[0.03] blur-[120px]" />
       </div>
 
       {/* Navbar */}
-      <nav className="relative z-50 flex items-center justify-between px-8 md:px-16 py-5 bg-white/[0.03] backdrop-blur-xl border-b border-white/[0.06]">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 bg-gradient-to-br from-indigo-500 to-cyan-400 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/25">
-            <FileText className="w-5 h-5 text-white" />
+      <nav className="relative z-50 flex items-center justify-between px-8 md:px-16 py-5 border-b border-white/[0.06]">
+        <AnimatedSection delay={0} direction="down">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+              <FileText className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-xl font-bold tracking-tight text-white">
+              Resume<GradientText variant="blue">AI</GradientText>
+            </span>
           </div>
-          <span className="text-xl font-bold tracking-tight">ResumeAI</span>
-        </div>
-        <Link href="/builder">
-          <button className="bg-gradient-to-r from-indigo-500 to-cyan-400 text-white px-5 py-2.5 rounded-lg text-sm font-semibold hover:opacity-90 transition-all duration-200 cursor-pointer shadow-lg shadow-indigo-500/25">
-            Get Started
-          </button>
-        </Link>
+        </AnimatedSection>
+
+        <AnimatedSection delay={0.1} direction="down">
+          <div className="hidden md:flex items-center gap-8 text-[13px] font-medium text-gray-500">
+            <a href="#features" className="hover:text-white transition-colors duration-300">Features</a>
+            <a href="#stats" className="hover:text-white transition-colors duration-300">Performance</a>
+            <a href="#cta" className="hover:text-white transition-colors duration-300">Get Started</a>
+          </div>
+        </AnimatedSection>
+
+        <AnimatedSection delay={0.2} direction="down">
+          <Link href="/builder">
+            <GradientButton variant="primary" className="px-6 py-2.5 text-sm rounded-full">
+              Get Started
+            </GradientButton>
+          </Link>
+        </AnimatedSection>
       </nav>
 
       {/* Hero Section */}
       <section className="relative z-10">
-        <div className="max-w-5xl mx-auto px-8 pt-28 pb-24 text-center">
+        <div className="max-w-5xl mx-auto px-8 pt-32 pb-24 text-center">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-400/20 text-indigo-300 text-sm font-medium mb-8 backdrop-blur-sm">
-            <Sparkles className="w-4 h-4 text-cyan-400" />
-            AI-Powered Resume Optimization
-          </div>
+          <AnimatedSection delay={0.1}>
+            <div className="flex justify-center mb-8">
+              <Badge>AI-Powered Resume Intelligence</Badge>
+            </div>
+          </AnimatedSection>
 
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6">
-            Build resumes that
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-300 to-teal-400">
-              land interviews
-            </span>
-          </h1>
+          {/* Main Heading — clear hierarchy, tight tracking */}
+          <AnimatedSection delay={0.2}>
+            <h1 className="text-[3.5rem] md:text-[5rem] leading-[1.05] font-extrabold tracking-[-0.04em] mb-6 text-white">
+              Build your perfect
+              <br />
+              <GradientText variant="gold">Resume</GradientText>
+            </h1>
+          </AnimatedSection>
 
-          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12 leading-relaxed">
-            Craft ATS-optimized, professional resumes in minutes with AI.
-            Choose from premium templates, get instant scoring, and export perfect PDFs.
-          </p>
+          {/* Subtext — generous line-height, muted color */}
+          <AnimatedSection delay={0.3}>
+            <p className="text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-16 leading-[1.8] font-normal">
+              The professional&apos;s choice for ATS-optimized resumes.
+              Powered by high-performance AI to land you the role you deserve.
+            </p>
+          </AnimatedSection>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/builder">
-              <button className="group flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-cyan-400 text-white px-8 py-4 rounded-xl text-base font-semibold hover:opacity-90 transition-all duration-200 shadow-xl shadow-indigo-500/30 cursor-pointer">
-                Build My Resume
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
-              </button>
-            </Link>
-            <span className="text-sm text-slate-500">No sign-up required • 100% free</span>
-          </div>
+          {/* Login Card */}
+          <AnimatedSection delay={0.4}>
+            <div className="max-w-sm mx-auto">
+              <GlassCard className="p-8">
+                <h2 className="text-lg font-bold text-white mb-1 tracking-tight">Welcome back</h2>
+                <p className="text-gray-500 text-[13px] mb-8 leading-relaxed">Sign in to start building your resume</p>
+
+                <Link href="/builder" className="block">
+                  <motion.button
+                    whileHover={{ scale: 1.02, boxShadow: "0 0 30px rgba(255,255,255,0.08)" }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full flex items-center justify-center gap-3 bg-white/[0.07] hover:bg-white/[0.12] border border-white/10 hover:border-white/20 text-white font-semibold py-3.5 px-6 rounded-xl transition-all duration-300 text-sm"
+                  >
+                    <svg className="w-5 h-5" viewBox="0 0 24 24">
+                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
+                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                    </svg>
+                    Continue with Google
+                  </motion.button>
+                </Link>
+
+                <div className="flex items-center gap-3 my-6">
+                  <div className="flex-1 h-px bg-white/[0.06]" />
+                  <span className="text-[11px] text-gray-600 font-medium uppercase tracking-wider">or</span>
+                  <div className="flex-1 h-px bg-white/[0.06]" />
+                </div>
+
+                <Link href="/builder" className="block">
+                  <GradientButton className="w-full py-3.5 rounded-xl text-sm">
+                    Start Building Free
+                    <ArrowRight className="w-4 h-4" />
+                  </GradientButton>
+                </Link>
+              </GlassCard>
+            </div>
+          </AnimatedSection>
+
+          {/* Trust indicator */}
+          <AnimatedSection delay={0.5}>
+            <div className="flex items-center justify-center gap-3 mt-12">
+              <div className="flex -space-x-2">
+                {[1, 2, 3, 4].map(i => (
+                  <div key={i} className="w-7 h-7 rounded-full border-2 border-[#0b1220] bg-gradient-to-br from-blue-500/30 to-purple-500/30" />
+                ))}
+              </div>
+              <span className="text-[13px] font-medium text-gray-600">Trusted by 2,000+ professionals</span>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* Features Grid */}
-      <section className="relative z-10 max-w-5xl mx-auto px-8 pb-28">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <section id="features" className="relative z-10 max-w-5xl mx-auto px-8 pb-32">
+        <AnimatedSection delay={0.1}>
+          <div className="text-center mb-14">
+            <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-400 mb-4">What we offer</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight">
+              Why Choose <GradientText variant="blue">ResumeAI</GradientText>
+            </h2>
+            <p className="text-gray-500 max-w-lg mx-auto text-[15px] leading-relaxed">
+              Everything you need to create a job-winning resume, powered by cutting-edge AI.
+            </p>
+          </div>
+        </AnimatedSection>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {[
             {
               icon: Sparkles,
-              title: "AI Content Optimization",
-              description: "Automatically rewrite and enhance your experience bullets for maximum professional impact.",
-              gradient: "from-amber-500 to-orange-400",
-              glow: "shadow-amber-500/20",
-              iconBg: "bg-amber-500/10 border-amber-500/20 text-amber-400"
+              title: "AI Precision",
+              description: "Engineered prompts that transform raw experience into professional excellence.",
+              gradient: "from-yellow-400 to-orange-500",
             },
             {
               icon: BarChart3,
-              title: "ATS Score Analysis",
-              description: "Get real-time ATS compatibility scores with keyword analysis and actionable suggestions.",
-              gradient: "from-indigo-500 to-blue-400",
-              glow: "shadow-indigo-500/20",
-              iconBg: "bg-indigo-500/10 border-indigo-500/20 text-indigo-400"
+              title: "ATS Mastery",
+              description: "Strategic keyword placement ensuring your resume clears every digital gatekeeper.",
+              gradient: "from-blue-400 to-purple-500",
             },
             {
               icon: Download,
-              title: "One-Click PDF Export",
-              description: "Download pixel-perfect, print-ready PDF resumes from any of our professional templates.",
-              gradient: "from-emerald-500 to-teal-400",
-              glow: "shadow-emerald-500/20",
-              iconBg: "bg-emerald-500/10 border-emerald-500/20 text-emerald-400"
-            }
+              title: "Elite Export",
+              description: "Premium PDF layouts that look stunning on screens and high-end print.",
+              gradient: "from-emerald-400 to-cyan-500",
+            },
           ].map((feature, i) => {
             const Icon = feature.icon;
             return (
-              <div
-                key={i}
-                className={`bg-white/[0.04] backdrop-blur-sm rounded-2xl border border-white/[0.06] p-8 hover:bg-white/[0.07] hover:shadow-2xl ${feature.glow} transition-all duration-300 group`}
-              >
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 border ${feature.iconBg}`}>
-                  <Icon className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-bold text-white mb-2">{feature.title}</h3>
-                <p className="text-sm text-slate-400 leading-relaxed">{feature.description}</p>
-              </div>
+              <AnimatedSection key={i} delay={0.2 + i * 0.1}>
+                <GlassCard hover className="p-7 group">
+                  <div className={`w-11 h-11 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-5 shadow-lg`}>
+                    <Icon className="w-5 h-5 text-white" />
+                  </div>
+                  <h3 className="text-base font-bold text-white mb-2 tracking-tight">{feature.title}</h3>
+                  <p className="text-gray-500 leading-relaxed text-[13px]">{feature.description}</p>
+                </GlassCard>
+              </AnimatedSection>
             );
           })}
         </div>
       </section>
 
       {/* Stats Strip */}
-      <section className="relative z-10 border-t border-b border-white/[0.06] bg-white/[0.02] py-16">
-        <div className="max-w-4xl mx-auto px-8 text-center">
-          <h2 className="text-2xl font-bold text-white mb-10">Why professionals choose ResumeAI</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-            {[
-              { stat: "95%+", label: "ATS Pass Rate" },
-              { stat: "4 Premium", label: "Templates" },
-              { stat: "< 5 min", label: "To Build" },
-            ].map((item, i) => (
-              <div key={i}>
-                <div className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-300 mb-1">{item.stat}</div>
-                <div className="text-sm text-slate-500 font-medium">{item.label}</div>
-              </div>
-            ))}
-          </div>
+      <section id="stats" className="relative z-10 border-y border-white/[0.04] py-20">
+        <div className="max-w-4xl mx-auto px-8">
+          <AnimatedSection>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 text-center">
+              {[
+                { stat: "98%", label: "Placement Rate" },
+                { stat: "Premium", label: "Sector Layouts" },
+                { stat: "Real-time", label: "ATS Feedback" },
+              ].map((item, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + i * 0.15 }}
+                  className="flex flex-col items-center"
+                >
+                  <div className="text-3xl md:text-4xl font-extrabold mb-2 tracking-tight">
+                    <GradientText variant="gold">{item.stat}</GradientText>
+                  </div>
+                  <div className="text-[11px] font-semibold tracking-[0.2em] text-gray-600 uppercase">{item.label}</div>
+                </motion.div>
+              ))}
+            </div>
+          </AnimatedSection>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="relative z-10 max-w-4xl mx-auto px-8 py-24">
-        <div className="relative bg-gradient-to-br from-indigo-600/30 to-cyan-600/20 rounded-3xl p-10 md:p-14 text-center border border-indigo-400/10 overflow-hidden">
-          {/* Inner glow */}
-          <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-indigo-500/5 to-transparent pointer-events-none" />
+      <section id="cta" className="relative z-10 max-w-4xl mx-auto px-8 py-32">
+        <AnimatedSection>
+          <GlassCard className="p-12 md:p-16 text-center relative overflow-hidden">
+            {/* Ambient glow inside card */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 blur-[80px] -mr-32 -mt-32 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-purple-500/10 blur-[60px] -ml-24 -mb-24 pointer-events-none" />
 
-          <div className="relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to stand out?</h2>
-            <p className="text-slate-400 mb-8 max-w-lg mx-auto">
-              Join thousands of job seekers who landed their dream roles with AI-optimized resumes.
-            </p>
-            <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 mb-10 text-sm">
-              {["ATS-optimized", "AI-enhanced writing", "Professional templates", "Instant PDF export"].map((item, i) => (
-                <span key={i} className="flex items-center gap-2 text-slate-300">
-                  <CheckCircle className="w-4 h-4 text-cyan-400" />
-                  {item}
-                </span>
-              ))}
+            <div className="relative z-10">
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-purple-400 mb-5">Get started today</p>
+              <h2 className="text-3xl md:text-[2.75rem] font-bold mb-5 text-white tracking-tight leading-tight">
+                Ready to land your <GradientText variant="gold">dream role</GradientText>?
+              </h2>
+              <p className="text-gray-500 mb-10 max-w-md mx-auto text-[15px] leading-relaxed">
+                Don&apos;t leave your next career move to chance. Use the tools built for elite candidates.
+              </p>
+              <Link href="/builder">
+                <GradientButton className="px-10 py-4 rounded-2xl text-base">
+                  Start Building
+                  <ArrowRight className="w-5 h-5" />
+                </GradientButton>
+              </Link>
             </div>
-            <Link href="/builder">
-              <button className="group bg-gradient-to-r from-indigo-500 to-cyan-400 text-white px-8 py-4 rounded-xl text-base font-bold hover:opacity-90 transition-all duration-200 cursor-pointer inline-flex items-center gap-2 shadow-xl shadow-indigo-500/30">
-                Start Building Now
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
-              </button>
-            </Link>
-          </div>
-        </div>
+          </GlassCard>
+        </AnimatedSection>
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-white/[0.06] py-8">
-        <div className="max-w-5xl mx-auto px-8 flex items-center justify-between text-sm text-slate-500">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-gradient-to-br from-indigo-500 to-cyan-400 rounded flex items-center justify-center">
-              <FileText className="w-3.5 h-3.5 text-white" />
+      <footer className="relative z-10 border-t border-white/[0.04] py-10">
+        <div className="max-w-5xl mx-auto px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <FileText className="w-4 h-4 text-white" />
             </div>
-            <span className="font-medium text-slate-400">ResumeAI</span>
+            <span className="font-bold text-white text-sm">ResumeAI</span>
           </div>
-          <span>&copy; {new Date().getFullYear()} ResumeAI. All rights reserved.</span>
+          <div className="flex gap-8 text-[13px] font-medium text-gray-600">
+            <a href="#" className="hover:text-white transition-colors duration-300">Privacy</a>
+            <a href="#" className="hover:text-white transition-colors duration-300">Terms</a>
+            <a href="#" className="hover:text-white transition-colors duration-300">Contact</a>
+          </div>
+          <p className="text-[13px] text-gray-700">&copy; {new Date().getFullYear()} ResumeAI</p>
         </div>
       </footer>
-
     </div>
   );
 }
