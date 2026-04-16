@@ -119,12 +119,17 @@ export default function BuilderPage() {
       {/* Sidebar Navigation */}
       <aside className="w-full md:w-72 border-b md:border-r border-white/5 bg-white/[0.02] backdrop-blur-sm p-6 md:p-8 flex-shrink-0 flex flex-col relative z-20">
         <div className="mb-8 hidden md:block">
-          <Link href="/" className="flex items-center gap-2 mb-8">
-            <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
-            <h2 className="text-lg font-bold text-white tracking-tight">AI Builder</h2>
-          </Link>
+          <div className="flex items-center justify-between mb-8">
+            <Link href="/" className="flex items-center gap-2">
+              <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+                <Sparkles className="w-4 h-4 text-white" />
+              </div>
+              <h2 className="text-lg font-bold text-white tracking-tight">AI Builder</h2>
+            </Link>
+            <Link href="/dashboard" className="text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors uppercase tracking-wider">
+              Dashboard
+            </Link>
+          </div>
 
           {/* Progress Bar */}
           <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden mb-3">
